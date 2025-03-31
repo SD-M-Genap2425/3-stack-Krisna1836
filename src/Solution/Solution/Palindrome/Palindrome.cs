@@ -12,7 +12,7 @@ namespace Solution.Palindrome
         {
             if (string.IsNullOrEmpty(input))
             {
-                return false;
+                return true;
             }
 
             string normalized = new string(input.ToLower().Where(char.IsLetterOrDigit).ToArray());

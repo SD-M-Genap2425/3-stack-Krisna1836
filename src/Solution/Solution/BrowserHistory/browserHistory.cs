@@ -17,13 +17,15 @@ namespace Solution.BrowserHistory
             Prev = null;
         }
     }
-    public class Browser
+    public class HistoryManager
     {
         private Halaman? top;
-        public Browser()
+
+        public HistoryManager()
         {
             top = null;
         }
+
         public void KunjungiHalaman(string url)
         {
             Halaman newPage = new Halaman(url);
@@ -31,32 +33,38 @@ namespace Solution.BrowserHistory
             top = newPage;
             Console.WriteLine($"Mengunjungi halaman: {url}");
         }
-        public string? Kembali()
+
+        public string Kembali()
         {
             if (top == null || top.Prev == null)
             {
-                Console.WriteLine("Tidak ada halaman sebelumnya.");
-                return null;
+                return "Tidak ada halaman sebelumnya.";
             }
             top = top.Prev;
-            Console.WriteLine("Kembali ke halaman sebelumnya...");
             return top.URL;
         }
+
         public string? LihatHalamanSaatIni()
         {
             return top?.URL;
         }
-        public void TampilkanHistory()
+
+        public string TampilkanHistory()
         {
-            Console.WriteLine("Menampilkan history:");
+            if (top == null)
+            {
+                return string.Empty;
+            }
+
+            StringBuilder sb = new StringBuilder();
             Halaman? current = top;
-            int index = 1;
             while (current != null)
             {
-                Console.WriteLine($"{index}. {current.URL}");
+                sb.Insert(0, current.URL + Environment.NewLine);
                 current = current.Prev;
-                index++;
             }
+
+            return sb.ToString();
         }
     }
 }

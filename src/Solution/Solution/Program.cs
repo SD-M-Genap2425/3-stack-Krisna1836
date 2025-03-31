@@ -1,6 +1,8 @@
 ﻿using Solution.BracketValidation;
 using Solution.BrowserHistory;
 using Solution.Palindrome;
+using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 
 namespace Solution;
 
@@ -9,7 +11,7 @@ internal class Program
     static void Main(string[] args)
     {
         // Browser history
-        Browser history = new Browser();
+        HistoryManager history = new HistoryManager();
         history.KunjungiHalaman("google.com");
         history.KunjungiHalaman("example.com");
         history.KunjungiHalaman("stackoverflow.com");
@@ -23,19 +25,29 @@ internal class Program
         Console.WriteLine();
 
         // Bracket validator
+        var validator = new BracketValidator();
+
         string ekspresiValid = "[{}](){}";
         string ekspresiInvalid = "(]";
 
-        Console.WriteLine($"Ekspresi '{ekspresiValid}' valid? {BracketValidator.ValidasiEkspresi(ekspresiValid)}");
-        Console.WriteLine($"Ekspresi '{ekspresiInvalid}' valid? {BracketValidator.ValidasiEkspresi(ekspresiInvalid)}");
+        bool isValidValid = validator.ValidasiEkspresi(ekspresiValid);
+        bool isValidInvalid = validator.ValidasiEkspresi(ekspresiInvalid);
+
+        Console.WriteLine($"Ekspresi '{ekspresiValid}' valid? {isValidValid}");
+        Console.WriteLine($"Ekspresi '{ekspresiInvalid}' valid? {isValidInvalid}");
         Console.WriteLine();
 
         //Palindrome Checker
-        string[] testcases = { "Kasur ini rusak", "Ibu ratna antar ubi", "Hello World" };
+        string kata1 = "Kasur ini rusak";
+        string kata2 = "Ibu Ratna antar ubi";
+        string kata3 = "Hello World";
 
-        foreach ( string testcase in testcases)
-        {
-            Console.WriteLine($"Input: \"{testcase}\" -> Palindrome ? {PalindromeChecker.CekPalindrom(testcase)}");
-        }
+        bool hasil1 = PalindromeChecker.CekPalindrom(kata1);
+        bool hasil2 = PalindromeChecker.CekPalindrom(kata2);
+        bool hasil3 = PalindromeChecker.CekPalindrom(kata3);
+
+        Console.WriteLine($"{kata1} : {hasil1}");
+        Console.WriteLine($"{kata2} : {hasil2}");
+        Console.WriteLine($"{kata3} : {hasil3}");
     }
 }

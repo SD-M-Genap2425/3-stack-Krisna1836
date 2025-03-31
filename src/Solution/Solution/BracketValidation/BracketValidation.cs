@@ -33,7 +33,9 @@ namespace Solution.BracketValidation
         public char Pop()
         {
             if (IsEmpty())
-                throw new InvalidOperationException("Stack kosong!");
+            {
+            throw new InvalidOperationException("Stack kosong!");
+            }
 
             char item = top.Data;
             top = top.Next;
@@ -43,7 +45,7 @@ namespace Solution.BracketValidation
         {
             return top == null;
         }
-        public static bool ValidasiEkspresi(string ekspresi)
+        public bool ValidasiEkspresi(string ekspresi)
         {
             BracketValidator stack = new BracketValidator();
             foreach (char ch in ekspresi)
@@ -54,7 +56,10 @@ namespace Solution.BracketValidation
                 }
                 else if (ch == ')' || ch == '}' || ch == ']')
                 {
-                    if (stack.IsEmpty()) return false;
+                    if (stack.IsEmpty())
+                    {
+                        return false;
+                    }
 
                     char topChar = stack.Pop();
                     if ((ch == ')' && topChar != '(') ||
